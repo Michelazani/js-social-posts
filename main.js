@@ -68,7 +68,7 @@ for (let i = 0; i < posts.length; i++) {
     // creo figlio
     const createDivEl = document.createElement ('div');
     // do classe
-    createDivEl.classList.add('.post')
+    createDivEl.classList.add('post')
 
     // faccio vedere nell'html
     containerElement.appendChild(createDivEl);
