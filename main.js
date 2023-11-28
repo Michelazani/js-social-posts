@@ -104,6 +104,17 @@ for (let i = 0; i < posts.length; i++) {
             </div>
         </div> 
     </div>            
-
 `
+
+const buttonClick = document.querySelector('a.like-button')
+
+let counter = `${informationPost.likes}`;
+buttonClick.addEventListener ('click', function(){
+    // per ogni click, incremento di uno i mi piace e cambio colore
+    counter++
+    // OK SI VEDE IN CONSOLE MA PER TUTTI
+    console.log(counter)
+    buttonClick.classList.add('like-button--liked')
+})
+
 };     
