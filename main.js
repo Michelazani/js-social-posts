@@ -63,7 +63,6 @@ const containerElement= document.getElementById('container');
 // ciclo per ogni oggetto (membro) dell'array
 for (let i = 0; i < posts.length; i++) {
     const informationPost = posts[i];
-    console.log(informationPost.id, informationPost.content, informationPost.author, informationPost.likes, informationPost.created);
 
     // creo figlio
     const createDivEl = document.createElement ('div');
@@ -94,27 +93,30 @@ for (let i = 0; i < posts.length; i++) {
     <div class="post__footer">
         <div class="likes js-likes">
             <div class="likes__cta">
-                <a class="like-button  js-like-button" href="#" data-postid="1">
+                <button class="like-button  js-like-button" href="" data-postid="${informationPost.id}">
                     <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                     <span class="like-button__label">Mi Piace</span>
-                </a>
+                </button>
             </div>
             <div class="likes__counter">
-                Piace a <b id="like-counter-1" class="js-likes-counter">${informationPost.likes}</b> persone
+                Piace a <strong id="like-counter-1" class="js-likes-counter">${informationPost.likes}</strong> persone
             </div>
         </div> 
     </div>            
 `
 
-const buttonClick = document.querySelector('a.like-button')
+const buttonClick = document.querySelector('button.like-button');
+const counterClick = document.querySelector('strong.js-likes-counter');
 
-let counter = `${informationPost.likes}`;
-buttonClick.addEventListener ('click', function(){
-    // per ogni click, incremento di uno i mi piace e cambio colore
-    counter++
-    // OK SI VEDE IN CONSOLE MA PER TUTTI
-    console.log(counter)
-    buttonClick.classList.add('like-button--liked')
-})
+ let counter = `${informationPost.likes}`;
+ buttonClick.addEventListener ('click', function(event){
+     event.preventDefault();
+     counter++;
+        
+        // aggiornamento del counter
+        counterClick.innerHTML = counter;
 
-};     
+        // aggiunta classe
+        buttonClick.classList.toggle('like-button--liked');
+    });     
+};
