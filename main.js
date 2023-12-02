@@ -93,10 +93,10 @@ for (let i = 0; i < posts.length; i++) {
     <div class="post__footer">
         <div class="likes js-likes">
             <div class="likes__cta">
-                <button class="like-button  js-like-button" href="" data-postid="${informationPost.id}">
+                <a class="like-button  js-like-button" href="" data-postid="${informationPost.id}">
                     <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                     <span class="like-button__label">Mi Piace</span>
-                </button>
+                </a>
             </div>
             <div class="likes__counter">
                 Piace a <strong id="like-counter-1" class="js-likes-counter">${informationPost.likes}</strong> persone
@@ -105,18 +105,23 @@ for (let i = 0; i < posts.length; i++) {
     </div>            
 `
 
-const buttonClick = document.querySelector('button.like-button');
-const counterClick = document.querySelector('strong.js-likes-counter');
+const buttonClick = document.querySelectorAll('a.like-button.js-like-button');
+const counterList = document.querySelectorAll('strong.js-likes-counter');
 
- let counter = `${informationPost.likes}`;
- buttonClick.addEventListener ('click', function(event){
-     event.preventDefault();
-     counter++;
-        
-        // aggiornamento del counter
-        counterClick.innerHTML = counter;
+    for (let i = 0; i < buttonClick.length; i++) {
 
-        // aggiunta classe
-        buttonClick.classList.toggle('like-button--liked');
-    });     
-};
+        const currentLikeButton = buttonClick[i];
+        currentLikeButton.addEventListener('click', function( event ){
+            event.preventDefault();
+
+            if (currentLikeButton.classList.contains('like-button--liked')){
+                currentLikeButton.classList.remove('like-button--liked');
+                counterList[i].innerHTML = parseInt(counterList[i].innerHTML, 10) - 1;
+            } else {
+                currentLikeButton.classList.add('like-button--liked');
+                counterList[i].innerHTML = parseInt(counterList[i].innerHTML, 10) + 1;
+            }
+        });
+    }
+}
+
